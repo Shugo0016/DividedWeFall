@@ -5,6 +5,11 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     public Vector3 targetPosition;
+    private void Awake()
+    {
+        targetPosition = transform.position;
+    }
+
 
     private void Update()
     {
@@ -17,17 +22,11 @@ public class Unit : MonoBehaviour
         }
        
 
-        if(Input.touchCount > 0 && Input.touchCount < 2)
-        {
-            //if (Input.GetTouch(0)  null) { 
         
-             Move(TouchWorld.GetPosition());
-            
-        }
         
     }
 
-    private void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition)
     {
         this.targetPosition = targetPosition;
     }
