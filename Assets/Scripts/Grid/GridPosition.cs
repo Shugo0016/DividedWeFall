@@ -1,7 +1,7 @@
 
 
 
-
+// Sets location of space on the larger grid
 public struct GridPosition
 {
     public int x;
@@ -13,6 +13,7 @@ public struct GridPosition
         this.z = z;
     }
 
+    // Writes message on grid space that states the location of that space
     public override string ToString()
     {
         return $"x: {x}; z: {z}";

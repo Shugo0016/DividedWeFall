@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Bugging out, but it's supposed to show Quad indicator square below unit showing that unit has been selected. 
 public class UnitSelectedVisual : MonoBehaviour
 {
     [SerializeField] private Unit unit;
@@ -24,6 +25,7 @@ public class UnitSelectedVisual : MonoBehaviour
         UpdateVisual();
     }
 
+    // When switching units enables quad under new unit and disables previous 
     private void UpdateVisual()
     {
         if (UnitActionSystem.Instance.GetSelectedUnit() == unit)

@@ -9,6 +9,7 @@ public class GridSys
     private float cellSize;
     private GridObject[,] gridObjectArray;
 
+    // Creates grid
     public GridSys(int width, int height, float cellSize) 
     {
         this.width = width;
@@ -25,26 +26,38 @@ public class GridSys
                 gridObjectArray[x, z] = new GridObject(this, gridPosition);
             }
         }
-
     }
-    public Vector3 GetWorldPos(int x, int z)
+
+
+    // gets current position in the world 
+    public Vector3 GetWorldPos(GridPosition gridPosition)
     {
-        return new Vector3(x, 0, z) * cellSize;
+        return new Vector3(gridPosition.x, 0, gridPosition.z) * cellSize;
     }
 
+    // Gets current position on grid
     public GridPosition GetGridPosition(Vector3 worldPos)
     {
         return new GridPosition(Mathf.RoundToInt(worldPos.x / cellSize), Mathf.RoundToInt(worldPos.y / cellSize));
     }
 
+    // Creates numbered spaces on grid
     public void CreateDebugObjects(Transform debugPrefab)
     {
         for (int x = 0; x < width; x++)
         {
             for (int z = 0; z < height; z++)
             {
-                GameObject.Instantiate(debugPrefab, GetWorldPos(x, z), Quaternion.identity);
+                GridPosition gridPosition = new GridPosition(x, z);
+                Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPos(gridPosition), Quaternion.identity);
+                GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
+                gridDebugObject.SetGridObject(GetGridObject(gridPosition));
             }
         }
+    }
+
+    public GridObject GetGridObject(GridPosition gridPosition)
+    {
+        return gridObjectArray[gridPosition.x, gridPosition.z];
     }
 }

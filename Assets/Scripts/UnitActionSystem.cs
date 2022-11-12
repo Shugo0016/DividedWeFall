@@ -31,6 +31,7 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
 
+    // Check if ray hits a different controlable unit and allows user to move that specific unit.
     private void HandleUnitSelect()
     {
         Ray ray;
@@ -41,7 +42,6 @@ public class UnitActionSystem : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, float.MaxValue, unitLayerMask))
             {
-
                 if (hit.transform.TryGetComponent<Unit>(out Unit unit))
                 {
                     selectedUnit = unit;
@@ -50,12 +50,15 @@ public class UnitActionSystem : MonoBehaviour
             }
         }
     }
+
+    // Sets unit that you want to control to controllable unit
     private void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
         OnSelectedUnitChanged?.Invoke(this, System.EventArgs.Empty);
     }
 
+    // Gets the current selected unit
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
