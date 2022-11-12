@@ -26,11 +26,7 @@ public class TouchWorld : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, instance.touchPlaneLayerMask))
             {
-                Debug.Log("TouchingGround");
-
-                // transform.position = hit.point;
-                //Destroy(hit.transform.gameObject);
-
+                //Debug.Log("TouchingGround");
                 return hit.point;
 
             }
