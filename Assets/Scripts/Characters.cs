@@ -72,7 +72,7 @@ public class Characters : MonoBehaviour
         }
     }
 
-    private Collider[] FindCharacters(Vector3 center, float raduis)
+    private Collider[] FindCharacters(Vector3 center, float radius)
     {
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         return hitColliders;
@@ -83,7 +83,7 @@ public class Characters : MonoBehaviour
 
     }
 
-    private virtual void SpecialAttack() { }
+    protected virtual void SpecialAttack() { }
 
     private void Dead()
     {
