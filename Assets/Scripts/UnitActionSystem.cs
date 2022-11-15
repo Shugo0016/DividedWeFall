@@ -7,9 +7,14 @@ public class UnitActionSystem : MonoBehaviour
     public static UnitActionSystem Instance { get; private set; }
 
     public event System.EventHandler OnSelectedUnitChanged;
-   [SerializeField] private Unit selectedUnit;
+
+    // This Field is used to identify which unit is currently selected. 
+    [SerializeField] private Unit selectedUnit;
+
+    // This layer mask will be used to determine which object is an actual unit
     [SerializeField] private LayerMask unitLayerMask;
 
+    // Awake runs before start
     private void Awake()
     {
         if (Instance != null)
@@ -21,34 +26,38 @@ public class UnitActionSystem : MonoBehaviour
         
         Instance = this;
     }
+
+    // Updates every frame
     private void Update()
     {
         
-        if (Input.touchCount > 0 && Input.touchCount < 2)
+        if (Input.GetMouseButtonDown(0))
         {
-            HandleUnitSelect();
+            if (TryHandleUnitSelection())
+            {
+                return;
+            }
             selectedUnit.Move(TouchWorld.GetPosition());
         }
+        
     }
 
-    // Check if ray hits a different controlable unit and allows user to move that specific unit.
-    private void HandleUnitSelect()
+
+
+    private bool TryHandleUnitSelection()
     {
         Ray ray;
         RaycastHit hit;
-        if (Input.touchCount > 0 && Input.touchCount < 2)
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, float.MaxValue, unitLayerMask))
         {
-            ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-
-            if (Physics.Raycast(ray, out hit, float.MaxValue, unitLayerMask))
+            if (hit.transform.TryGetComponent<Unit>(out Unit unit))
             {
-                if (hit.transform.TryGetComponent<Unit>(out Unit unit))
-                {
-                    selectedUnit = unit;
-
-                }
+                SetSelectedUnit(unit);
+                return true;
             }
         }
+        return false;
     }
 
     // Sets unit that you want to control to controllable unit

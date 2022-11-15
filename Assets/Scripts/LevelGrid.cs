@@ -2,18 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSetup : MonoBehaviour
+public class LevelGrid : MonoBehaviour
 {
 
-
-    public static LevelSetup Instance { get; private set; }
-    [SerializeField] private Transform gridDebugPrefab;
+    public static LevelGrid Instance { get; private set; }
+    [SerializeField] private Transform gridDebugObjectPrefab;
     private GridSys gridSystem;
+   
 
-    // Sets dimensions of grid I.E cellSize, height, width
     private void Awake()
     {
-        // Checks if there is more then one level grid objects if there is it will destroy the extra
+        gridSystem = new GridSys(15, 15, 4f);
+        gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         if (Instance != null)
         {
             Debug.LogError("There's more than one LevelGrid! " + transform + " - " + Instance);
@@ -21,31 +26,35 @@ public class LevelSetup : MonoBehaviour
             return;
         }
         Instance = this;
-        gridSystem = new GridSys(15, 15, 5f);
-        gridSystem.CreateDebugObjects(gridDebugPrefab);
     }
 
-    // Supposed to set unit at a grid position. 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    // Places unit at specific location on grid;
     public void SetUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         gridObject.SetUnit(unit);
     }
 
-    // Gets grid position of unit
+    // Gets the unit a the specific grid position
     public Unit GetUnitAtGridPosition(GridPosition gridPosition)
     {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         return gridObject.GetUnit();
     }
 
-    // After unit leaves space sets that previous space to null.
+    // When unit leaves position will clear values.
     public void ClearUnitAtGridPosition(GridPosition gridPosition)
     {
-
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
         gridObject.SetUnit(null);
     }
 
-    public GridPosition GetGridPosition(Vector3 worldPos) => gridSystem.GetGridPosition(worldPos);
+    public GridPosition GetGridPosition(Vector3 worldPosition) => gridSystem.GetGridPosition(worldPosition);
+    
 }

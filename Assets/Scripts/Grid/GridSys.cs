@@ -36,9 +36,9 @@ public class GridSys
     }
 
     // Gets current position on grid
-    public GridPosition GetGridPosition(Vector3 worldPos)
+    public GridPosition GetGridPosition(Vector3 worldPosition)
     {
-        return new GridPosition(Mathf.RoundToInt(worldPos.x / cellSize), Mathf.RoundToInt(worldPos.y / cellSize));
+        return new GridPosition(Mathf.RoundToInt(worldPosition.x / cellSize), Mathf.RoundToInt(worldPosition.y / cellSize));
     }
 
     // Creates numbered spaces on grid
