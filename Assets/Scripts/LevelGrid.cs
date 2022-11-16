@@ -28,12 +28,6 @@ public class LevelGrid : MonoBehaviour
         Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // Places unit at specific location on grid;
     public void SetUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
@@ -55,6 +49,9 @@ public class LevelGrid : MonoBehaviour
         gridObject.SetUnit(null);
     }
 
-    public GridPosition GetGridPosition(Vector3 worldPosition) => gridSystem.GetGridPosition(worldPosition);
+    public GridPosition GetGridPosition(Vector3 worldPosition)
+    {
+        return gridSystem.GetGridPosition(worldPosition);
+    }
     
 }
