@@ -14,11 +14,6 @@ public class LevelGrid : MonoBehaviour
     {
         gridSystem = new GridSys(15, 15, 4f);
         gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         if (Instance != null)
         {
             Debug.LogError("There's more than one LevelGrid! " + transform + " - " + Instance);
@@ -26,6 +21,12 @@ public class LevelGrid : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Places unit at specific location on grid;
@@ -49,6 +50,7 @@ public class LevelGrid : MonoBehaviour
         gridObject.SetUnit(null);
     }
 
+    // Looks at the world position of Unit and returns location based on grid system
     public GridPosition GetGridPosition(Vector3 worldPosition)
     {
         return gridSystem.GetGridPosition(worldPosition);

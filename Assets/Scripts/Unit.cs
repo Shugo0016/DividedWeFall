@@ -5,7 +5,7 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     public Vector3 targetPosition;
-    //private GridPosition gridPosition;
+    private GridPosition gridPosition;
 
     private void Awake()
     {
@@ -16,7 +16,9 @@ public class Unit : MonoBehaviour
     //Get grid position of unit and sets 
     private void Start()
     {
-        GridPosition gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        print(transform.position);
+        print(LevelGrid.Instance);
+        gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.SetUnitAtGridPosition(gridPosition, this);
     }
 
