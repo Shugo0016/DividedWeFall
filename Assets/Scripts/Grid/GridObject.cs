@@ -7,30 +7,43 @@ public class GridObject
 {
     private GridSys gridSystem;
     private GridPosition gridPosition;
-    private Unit unit;
+    private List<Unit> unitList;
 
    
     public GridObject(GridSys gridSystem, GridPosition gridPosition)
     {
         this.gridSystem = gridSystem;
         this.gridPosition = gridPosition;
+        unitList = new List<Unit>();
     }
 
-    // Checks if unit is on space and addes unit name in addition to x and z coordinate
+    // Displays unit names on grid space
     public override string ToString()
     {
-        return gridPosition.ToString() + "\n" + unit;
+        string unitName = "";
+        foreach(Unit unit in unitList)
+        {
+            unitName += unit + "\n";
+        }
+        return gridPosition.ToString() + "\n" + unitName;
+        
     }
 
-    // Sets unit
-    public void SetUnit(Unit unit)
+    // adds unit to list
+    public void AddUnit(Unit unit)
     {
-        this.unit = unit;
+        unitList.Add(unit);
     }
 
-    // Gets unit
-    public Unit GetUnit()
+    // Removes unit from list
+    public void RemoveUnit(Unit unit)
     {
-        return unit;
+        unitList.Remove(unit);
+    } 
+
+    // Gets unit list
+    public List<Unit> GetUnitList()
+    {
+        return unitList;
     }
 }

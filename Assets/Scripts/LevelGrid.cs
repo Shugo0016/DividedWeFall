@@ -30,24 +30,30 @@ public class LevelGrid : MonoBehaviour
     }
 
     // Places unit at specific location on grid;
-    public void SetUnitAtGridPosition(GridPosition gridPosition, Unit unit)
+    public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
-        gridObject.SetUnit(unit);
+        gridObject.AddUnit(unit);
     }
 
     // Gets the unit a the specific grid position
-    public Unit GetUnitAtGridPosition(GridPosition gridPosition)
+    public List<Unit> GetUnitListGridPosition(GridPosition gridPosition)
     {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
-        return gridObject.GetUnit();
+        return gridObject.GetUnitList();
     }
 
     // When unit leaves position will clear values.
-    public void ClearUnitAtGridPosition(GridPosition gridPosition)
+    public void RemoveUnitAtGridPosition(GridPosition gridPosition, Unit unit)
     {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
-        gridObject.SetUnit(null);
+        gridObject.RemoveUnit(unit);
+    }
+
+    public void UnitMovedPosition(Unit unit, GridPosition from, GridPosition to)
+    {
+        RemoveUnitAtGridPosition(from, unit);
+        AddUnitAtGridPosition(to, unit);
     }
 
     // Looks at the world position of Unit and returns location based on grid system

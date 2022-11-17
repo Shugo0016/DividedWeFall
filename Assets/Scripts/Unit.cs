@@ -16,10 +16,10 @@ public class Unit : MonoBehaviour
     //Get grid position of unit and sets 
     private void Start()
     {
-        print(transform.position);
-        print(LevelGrid.Instance);
+        //    print(transform.position);
+        //    print(LevelGrid.Instance);
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
-        LevelGrid.Instance.SetUnitAtGridPosition(gridPosition, this);
+        LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
     }
 
     // Calls the move function to move unit from one space to the next currently does not work for grid
@@ -35,6 +35,15 @@ public class Unit : MonoBehaviour
             float rotateSpeed = 10f;
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
         }
+
+
+        GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
+        if(newGridPosition != gridPosition)
+        {
+            LevelGrid.Instance.UnitMovedPosition(this, gridPosition, newGridPosition);
+            gridPosition = newGridPosition;
+        }
+
     }
 
     // This function moves unit to position requested.
