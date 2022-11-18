@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         // TODO: set action points to the term
-        if ((isEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!isEnemy() && TurnSystem.Instance.IsPlayerTurn()))
+        if ((GetIsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!GetIsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
         {
 
         }
