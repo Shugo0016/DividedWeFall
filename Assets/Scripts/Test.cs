@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
+
+    [SerializeField] private Unit unit;
   
     // Start is called before the first frame update
     void Start()
@@ -12,6 +14,11 @@ public class Test : MonoBehaviour
     }
     private void Update()
     {
-       
+       if(Input.GetKeyDown(KeyCode.T)) {
+            GridVisualScript.Instance.HideAllGridPositions();
+            GridVisualScript.Instance.ShowGridPositionsList(unit.GetMoveAction().GetValidActionGridList());
+
+  
+       }
     }
 }
