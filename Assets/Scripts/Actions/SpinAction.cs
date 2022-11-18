@@ -7,6 +7,8 @@ public class SpinAction : BaseAction
 {
     private float totalSpinAmount;
 
+    private int maxMoveDistance = 5;
+
     private void Update()
     {
         if (!isActive)
@@ -39,9 +41,45 @@ public class SpinAction : BaseAction
         List<GridPosition> validGridPositions = new List<GridPosition>();
         GridPosition unitGridPosition = unit.GetGridPosition();
 
-        return new List<GridPosition> {
-            unitGridPosition
-        };
+        for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
+        {
+            for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                {
+                    continue;
+                }
+
+
+                if (unitGridPosition == testGridPosition)
+                {
+                    // Checks if Grid Position has the same position as unit
+                    continue;
+                }
+
+                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                {
+                    //GridPosition Occupied by another unit
+                    continue;
+                }
+
+                if ((Math.Abs(unitGridPosition.x - testGridPosition.x) + Math.Abs(unitGridPosition.z - testGridPosition.z)) > maxMoveDistance)
+                {
+                    continue;
+                }
+
+
+                //Debug.Log(testGridPosition);
+                validGridPositions.Add(testGridPosition);
+            }
+
+        }
+
+
+        return validGridPositions;
+
     }
 
     public override int GetActionPointsCost()
