@@ -5,8 +5,11 @@ using System;
 
 public class Unit : MonoBehaviour
 {
+    private const int ACTION_POINTS_MAX = 2;
     public Vector3 targetPosition;
     private GridPosition gridPosition;
+
+    [SerializeField] private bool isEnemy;
 
     private void Awake()
     {
@@ -21,6 +24,7 @@ public class Unit : MonoBehaviour
         //    print(LevelGrid.Instance);
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
 
     // Calls the move function to move unit from one space to the next currently does not work for grid
@@ -58,5 +62,15 @@ public class Unit : MonoBehaviour
         {
             this.targetPosition = movePosition;
         }
+    }
+
+    public bool GetIsEnemy()
+    {
+        return isEnemy;
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        // TODO: set action points to the term
     }
 }

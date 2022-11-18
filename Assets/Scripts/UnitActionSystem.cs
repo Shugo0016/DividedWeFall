@@ -53,6 +53,10 @@ public class UnitActionSystem : MonoBehaviour
         {
             if (hit.transform.TryGetComponent<Unit>(out Unit unit))
             {
+                if (unit.GetIsEnemy())
+                {
+                    return false;
+                }
                 SetSelectedUnit(unit);
                 return true;
             }
