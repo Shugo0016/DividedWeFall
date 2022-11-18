@@ -65,7 +65,7 @@ public class CameraMovement : MonoBehaviour
     {
         // Debug.Log(increment);
         float y = -(increment * 30);
-        Debug.Log(y);
+        // Debug.Log(y);
         Camera.main.transform.position += new Vector3(0, y, 0);
         // Debug.Log(Camera.main.fieldOfView);
     }

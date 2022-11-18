@@ -23,14 +23,14 @@ public class UnitActionSystem : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         Instance = this;
     }
 
     // Updates every frame
     private void Update()
     {
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleUnitSelection())
@@ -39,7 +39,7 @@ public class UnitActionSystem : MonoBehaviour
             }
             selectedUnit.Move(TouchWorld.GetPosition());
         }
-        
+
     }
 
 

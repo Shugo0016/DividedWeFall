@@ -10,18 +10,18 @@ public class GridSys
     private GridObject[,] gridObjectArray;
 
     // Creates grid
-    public GridSys(int width, int height, float cellSize) 
+    public GridSys(int width, int height, float cellSize)
     {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
 
         gridObjectArray = new GridObject[width, height];
-        for(int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++)
         {
-            for(int z = 0; z < height; z++)
+            for (int z = 0; z < height; z++)
             {
-                //Debug.DrawLine(GetWorldPos(x, z), GetWorldPos(x,z) + Vector3.right * .2f, Color.white, 1000);
+                // Debug.DrawLine(GetWorldPos(x, z), GetWorldPos(x, z) + Vector3.right * .2f, Color.white, 1000);
                 GridPosition gridPosition = new GridPosition(x, z);
                 gridObjectArray[x, z] = new GridObject(this, gridPosition);
             }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Unit : MonoBehaviour
 {
@@ -50,6 +51,12 @@ public class Unit : MonoBehaviour
     public void Move(Vector3 targetPosition)
     {
         Vector3 movePosition = new Vector3(targetPosition.x, targetPosition.y + 1.5f, targetPosition.z);
-        this.targetPosition = movePosition;
+        GridPosition NewGridPosition = LevelGrid.Instance.GetGridPosition(movePosition);
+        GridPosition OldGridPosition = LevelGrid.Instance.GetGridPosition(this.targetPosition);
+        int difference = Math.Abs((NewGridPosition.x - OldGridPosition.x)) + Math.Abs((NewGridPosition.z - OldGridPosition.z));
+        if (difference < 5)
+        {
+            this.targetPosition = movePosition;
+        }
     }
 }
