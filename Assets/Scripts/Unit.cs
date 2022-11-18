@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     private GridPosition gridPosition;
     private MoveAction moveAction;
     private SpinAction spinAction;
+    private BaseAction[] baseActionArray;
 
     [SerializeField] private bool isEnemy;
 
@@ -16,6 +17,7 @@ public class Unit : MonoBehaviour
     {
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
+        baseActionArray = GetComponents<BaseAction>();
     }
 
     //Get grid position of unit and sets 
@@ -66,5 +68,10 @@ public class Unit : MonoBehaviour
         {
 
         }
+    }
+
+    public BaseAction[] GetBaseActionArray()
+    {
+        return baseActionArray;
     }
 }
