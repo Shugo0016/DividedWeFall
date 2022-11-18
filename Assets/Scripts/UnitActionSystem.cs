@@ -31,13 +31,20 @@ public class UnitActionSystem : MonoBehaviour
     private void Update()
     {
 
+
+
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleUnitSelection())
             {
                 return;
             }
-            selectedUnit.Move(TouchWorld.GetPosition());
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(TouchWorld.GetPosition());
+
+            if(selectedUnit.GetMoveAction().IsValidActionAtGridPosition(mouseGridPosition))
+            {
+                selectedUnit.GetMoveAction().Move(mouseGridPosition);
+            }
         }
 
     }
