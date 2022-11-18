@@ -6,9 +6,11 @@ using System;
 public class Unit : MonoBehaviour
 {
     private const int ACTION_POINTS_MAX = 2;
+    private int actionPoints = ACTION_POINTS_MAX;
     private GridPosition gridPosition;
     private MoveAction moveAction;
     private SpinAction spinAction;
+    private BaseAction[] baseActionArray;
 
     [SerializeField] private bool isEnemy;
 
@@ -16,6 +18,7 @@ public class Unit : MonoBehaviour
     {
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
+        baseActionArray = GetComponents<BaseAction>();
     }
 
     //Get grid position of unit and sets 
@@ -61,10 +64,47 @@ public class Unit : MonoBehaviour
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
-        // TODO: set action points to the term
-        if ((GetIsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!GetIsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
-        {
+        // // TODO: set action points to the term
+        // if ((GetIsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!GetIsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
+        // {
+        //     actionPoints = ACTION_POINTS_MAX;
+        // }
+        actionPoints = ACTION_POINTS_MAX;
+    }
 
+    public BaseAction[] GetBaseActionArray()
+    {
+        return baseActionArray;
+    }
+
+    public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
+    {
+        if (CanSpendActionPointsToTakeAction(baseAction))
+        {
+            SpendActionPoints(baseAction.GetActionPointsCost());
+            return true;
         }
+        return false;
+    }
+    public bool CanSpendActionPointsToTakeAction(BaseAction baseAction)
+    {
+        if (actionPoints >= baseAction.GetActionPointsCost())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void SpendActionPoints(int amount)
+    {
+        actionPoints -= amount;
+    }
+
+    public int GetActionPoints()
+    {
+        return actionPoints;
     }
 }

@@ -39,7 +39,7 @@ public class CameraMovement : MonoBehaviour
         if (Input.touchCount == 2)
         {
             Touch touchZero = Input.GetTouch(0);
-            Touch touchOne = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
             Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
             Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
