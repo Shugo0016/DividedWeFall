@@ -23,6 +23,13 @@ public class Characters : MonoBehaviour
     protected int moveRange;
     // Start is called before the first frame update
 
+    void Update()
+    {
+        if (healthPoints < 1)
+        {
+            Destroy(this.gameObject);
+        }
+    }
     private void OnCollisionEnter(Collision other)
     {
         Debug.Log("Take Damage");

@@ -8,7 +8,7 @@ public class LevelGrid : MonoBehaviour
     public static LevelGrid Instance { get; private set; }
     [SerializeField] private Transform gridDebugObjectPrefab;
     private GridSys gridSystem;
-   
+
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class LevelGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Places unit at specific location on grid;
@@ -61,5 +61,5 @@ public class LevelGrid : MonoBehaviour
     {
         return gridSystem.GetGridPosition(worldPosition);
     }
-    
+
 }
