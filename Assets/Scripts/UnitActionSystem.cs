@@ -46,7 +46,7 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
 
-        if (EventSystem.current.IsPointerOverGameObject)
+        if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }
