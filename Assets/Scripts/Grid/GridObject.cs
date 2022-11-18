@@ -5,12 +5,12 @@ using UnityEngine;
 // Creates object on grid 
 public class GridObject
 {
-    private GridSys gridSystem;
+    private GridSys<GridObject> gridSystem;
     private GridPosition gridPosition;
     private List<Unit> unitList;
 
    
-    public GridObject(GridSys gridSystem, GridPosition gridPosition)
+    public GridObject(GridSys<GridObject> gridSystem, GridPosition gridPosition)
     {
         this.gridSystem = gridSystem;
         this.gridPosition = gridPosition;
