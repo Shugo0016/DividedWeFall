@@ -64,11 +64,12 @@ public class Unit : MonoBehaviour
 
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
-        // TODO: set action points to the term
-        if ((GetIsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!GetIsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
-        {
-            actionPoints = ACTION_POINTS_MAX;
-        }
+        // // TODO: set action points to the term
+        // if ((GetIsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!GetIsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
+        // {
+        //     actionPoints = ACTION_POINTS_MAX;
+        // }
+        actionPoints = ACTION_POINTS_MAX;
     }
 
     public BaseAction[] GetBaseActionArray()
