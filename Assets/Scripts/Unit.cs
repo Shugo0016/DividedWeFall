@@ -5,6 +5,7 @@ using System;
 
 public class Unit : MonoBehaviour
 {
+    private const int ACTION_POINTS_MAX = 2;
     private GridPosition gridPosition;
     private MoveAction moveAction;
 
@@ -18,12 +19,13 @@ public class Unit : MonoBehaviour
     {
         gridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         LevelGrid.Instance.AddUnitAtGridPosition(gridPosition, this);
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
     }
 
     // Calls the move function to move unit from one space to the next currently does not work for grid
     private void Update()
     {
-        
+
         GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         if (newGridPosition != gridPosition)
         {
@@ -42,5 +44,14 @@ public class Unit : MonoBehaviour
     {
         return gridPosition;
     }
-    
+
+    public bool GetIsEnemy()
+    {
+        return isEnemy;
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        // TODO: set action points to the term
+    }
 }
