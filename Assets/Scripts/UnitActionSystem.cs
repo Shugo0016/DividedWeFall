@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnitActionSystem : MonoBehaviour
 {
@@ -45,7 +46,10 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
 
-
+        if (EventSystem.current.IsPointerOverGameObject)
+        {
+            return;
+        }
         if (TryHandleUnitSelection())
         {
             return;
@@ -56,22 +60,15 @@ public class UnitActionSystem : MonoBehaviour
 
     private void HandleSelectedAction()
     {
-        GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(TouchWorld.GetPosition());
+
         if (Input.GetMouseButtonDown(0))
         {
-            switch (selectedAction)
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(TouchWorld.GetPosition());
+
+            if (selectedAction.IsValidActionAtGridPosition(mouseGridPosition))
             {
-                case MoveAction moveAction:
-                    if (moveAction.IsValidActionAtGridPosition(mouseGridPosition))
-                    {
-                        SetBusy();
-                        moveAction.Move(mouseGridPosition, ClearBusy);
-                    }
-                    break;
-                case SpinAction spinAction:
-                    SetBusy();
-                    spinAction.Spin(ClearBusy);
-                    break;
+                SetBusy();
+                selectedAction.TakeAction(mouseGridPosition, ClearBusy);
             }
         }
     }
