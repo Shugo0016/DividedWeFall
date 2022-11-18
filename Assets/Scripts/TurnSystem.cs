@@ -8,11 +8,13 @@ public class TurnSystem : MonoBehaviour
     public static TurnSystem Instance { get; private set; }
     private int turnNumber = 1;
 
-    public event EventHanlder OnTurnChanged;
+    private bool isPlayerTurn = true;
+
+    public event EventHandler OnTurnChanged;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogError("There is more than one TurnSystem!" + transform + "-" + Instance);
             Destroy(gameObject);
@@ -24,12 +26,17 @@ public class TurnSystem : MonoBehaviour
     public void NextTurn()
     {
         turnNumber++;
-
-        onTurnChanged?.Invoke(this, EventArgs.Empty);
+        isPlayerTurn = !isPlayerTurn;
+        OnTurnChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetTurnNumber()
     {
         return turnNumber;
+    }
+
+    public bool IsPlayerTurn()
+    {
+        return isPlayerTurn;
     }
 }

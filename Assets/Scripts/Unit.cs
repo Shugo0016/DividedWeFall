@@ -9,6 +9,8 @@ public class Unit : MonoBehaviour
     private GridPosition gridPosition;
     private MoveAction moveAction;
 
+    [SerializeField] private bool isEnemy;
+
     private void Awake()
     {
         moveAction = GetComponent<MoveAction>();
@@ -53,5 +55,9 @@ public class Unit : MonoBehaviour
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         // TODO: set action points to the term
+        if ((GetIsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!GetIsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
+        {
+
+        }
     }
 }
