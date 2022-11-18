@@ -14,6 +14,8 @@ public class UnitActionSystem : MonoBehaviour
     // This layer mask will be used to determine which object is an actual unit
     [SerializeField] private LayerMask unitLayerMask;
 
+    private bool isBusy;
+
     // Awake runs before start
     private void Awake()
     {
@@ -31,6 +33,10 @@ public class UnitActionSystem : MonoBehaviour
     private void Update()
     {
 
+        if (isBusy)
+        {
+            return;
+        }
 
 
         if (Input.GetMouseButtonDown(0))
@@ -41,15 +47,29 @@ public class UnitActionSystem : MonoBehaviour
             }
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(TouchWorld.GetPosition());
 
-            if(selectedUnit.GetMoveAction().IsValidActionAtGridPosition(mouseGridPosition))
+            if (selectedUnit.GetMoveAction().IsValidActionAtGridPosition(mouseGridPosition))
             {
-                selectedUnit.GetMoveAction().Move(mouseGridPosition);
+                SetBusy();
+                selectedUnit.GetMoveAction().Move(mouseGridPosition, ClearBusy);
             }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            SetBusy();
+            selectedUnit.GetSpinAction().Spin(ClearBusy);
         }
 
     }
 
+    private void SetBusy()
+    {
+        isBusy = true;
+    }
 
+    private void ClearBusy()
+    {
+        isBusy = false;
+    }
 
     private bool TryHandleUnitSelection()
     {

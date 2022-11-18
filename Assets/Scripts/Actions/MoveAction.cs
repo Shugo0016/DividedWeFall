@@ -3,39 +3,48 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class MoveAction : MonoBehaviour
+public class MoveAction : BaseAction
 {
 
     [SerializeField] private int maxMoveDistance = 5;
 
     public Vector3 targetPosition;
-    private Unit unit;
 
-    private void Awake()
+    protected override void Awake()
     {
-
-        unit = GetComponent<Unit>();
+        base.Awake();
         targetPosition = transform.position;
     }
 
     private void Update()
     {
+        if (!isActive)
+        {
+            return;
+        }
+        Vector3 moveDirection = (targetPosition - transform.position).normalized;
+
         float stoppingDistance = .1f;
+
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
-            Vector3 moveDirection = (targetPosition - transform.position).normalized;
             float moveSpeed = 4f;
             transform.position += moveDirection * moveSpeed * Time.deltaTime;
-
-            float rotateSpeed = 10f;
-            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
         }
+        else
+        {
+            isActive = false;
+            onActionComplete();
+        }
+        float rotateSpeed = 10f;
+        transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
     }
 
-    public void Move(GridPosition gridPosition)
+    public void Move(GridPosition gridPosition, Action onActionComplete)
     {
-        this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition); 
-        
+        this.onActionComplete = onActionComplete;
+        this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
+        isActive = true;
     }
 
     public bool IsValidActionAtGridPosition(GridPosition gridPosition)
@@ -55,25 +64,25 @@ public class MoveAction : MonoBehaviour
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
-                if(!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition))
                 {
                     continue;
                 }
 
 
-                if(unitGridPosition == testGridPosition)
+                if (unitGridPosition == testGridPosition)
                 {
                     // Checks if Grid Position has the same position as unit
                     continue;
                 }
 
-                if(LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
+                if (LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
                     //GridPosition Occupied by another unit
                     continue;
                 }
 
-                if ((Math.Abs(unitGridPosition.x - testGridPosition.x) + Math.Abs(unitGridPosition.z - testGridPosition.z)) > maxMoveDistance) 
+                if ((Math.Abs(unitGridPosition.x - testGridPosition.x) + Math.Abs(unitGridPosition.z - testGridPosition.z)) > maxMoveDistance)
                 {
                     continue;
                 }
