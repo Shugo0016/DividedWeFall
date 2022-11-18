@@ -7,13 +7,11 @@ public class LevelGrid : MonoBehaviour
 
     public static LevelGrid Instance { get; private set; }
     [SerializeField] private Transform gridDebugObjectPrefab;
-    private GridSys gridSystem;
+    private GridSys<GridObject> gridSystem;
 
 
     private void Awake()
     {
-        gridSystem = new GridSys(15, 15, 4f);
-        gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
         if (Instance != null)
         {
             Debug.LogError("There's more than one LevelGrid! " + transform + " - " + Instance);
@@ -21,6 +19,10 @@ public class LevelGrid : MonoBehaviour
             return;
         }
         Instance = this;
+
+        gridSystem = new GridSys<GridObject>(15, 15, 4f,
+            (GridSys<GridObject> g, GridPosition gridPosition) => new GridObject(g, gridPosition));
+        //gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
     }
 
     // Start is called before the first frame update
