@@ -5,7 +5,7 @@ using UnityEngine;
 public class TouchWorld : MonoBehaviour
 {
     private static TouchWorld instance;
-    
+
     [SerializeField] private LayerMask touchPlaneLayerMask;
 
     private void Awake()
@@ -24,7 +24,8 @@ public class TouchWorld : MonoBehaviour
         RaycastHit hit;
 
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.Log(Physics.Raycast(ray, out hit, Mathf.Infinity, instance.touchPlaneLayerMask));
+        Physics.Raycast(ray, out hit, Mathf.Infinity, instance.touchPlaneLayerMask);
+        // Debug.Log(Physics.Raycast(ray, out hit, Mathf.Infinity, instance.touchPlaneLayerMask));
         return hit.point;
 
 
