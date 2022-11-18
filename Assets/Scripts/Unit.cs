@@ -9,6 +9,8 @@ public class Unit : MonoBehaviour
     private GridPosition gridPosition;
     private MoveAction moveAction;
 
+    [SerializeField] private bool isEnemy;
+
     private void Awake()
     {
         moveAction = GetComponent<MoveAction>();
