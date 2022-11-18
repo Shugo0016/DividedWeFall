@@ -67,7 +67,7 @@ public class Unit : MonoBehaviour
         // TODO: set action points to the term
         if ((GetIsEnemy() && !TurnSystem.Instance.IsPlayerTurn()) || (!GetIsEnemy() && TurnSystem.Instance.IsPlayerTurn()))
         {
-
+            actionPoints = ACTION_POINTS_MAX;
         }
     }
 
