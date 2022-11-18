@@ -25,4 +25,9 @@ public abstract class BaseAction : MonoBehaviour
     }
 
     public abstract List<GridPosition> GetValidActionGridList();
+
+    public virtual int GetActionPointsCost()
+    {
+        return 1;
+    }
 }

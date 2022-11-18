@@ -15,6 +15,8 @@ public class UnitActionSystem : MonoBehaviour
     // This layer mask will be used to determine which object is an actual unit
     [SerializeField] private LayerMask unitLayerMask;
 
+    public event EventHandler onActionStarted;
+
     private BaseAction selectedAction;
 
     private bool isBusy;
@@ -67,8 +69,12 @@ public class UnitActionSystem : MonoBehaviour
 
             if (selectedAction.IsValidActionAtGridPosition(mouseGridPosition))
             {
-                SetBusy();
-                selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+                if (selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
+                {
+                    SetBusy();
+                    selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+                    OnActionStarted?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
     }

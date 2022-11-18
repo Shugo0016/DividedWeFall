@@ -6,6 +6,7 @@ using System;
 public class Unit : MonoBehaviour
 {
     private const int ACTION_POINTS_MAX = 2;
+    private int actionPoints = ACTION_POINTS_MAX;
     private GridPosition gridPosition;
     private MoveAction moveAction;
     private SpinAction spinAction;
@@ -73,5 +74,36 @@ public class Unit : MonoBehaviour
     public BaseAction[] GetBaseActionArray()
     {
         return baseActionArray;
+    }
+
+    public bool TrySpendActionPointsToTakeAction(BaseAction baseAction)
+    {
+        if (CanSpendActionPointsToTakeAction(baseAction))
+        {
+            SpendActionPoints(baseAction.GetActionPointsCost());
+            return true;
+        }
+        return false;
+    }
+    public bool CanSpendActionPointsToTakeAction(BaseAction baseAction)
+    {
+        if (actionPoints >= baseAction.GetActionPointsCost())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void SpendActionPoints(int amount)
+    {
+        actionPoints -= amount;
+    }
+
+    public int GetActionPoints()
+    {
+        return actionPoints;
     }
 }
