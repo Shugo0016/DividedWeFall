@@ -9,6 +9,11 @@ public class UnitActionSystem : MonoBehaviour
 
     public event System.EventHandler OnSelectedUnitChanged;
 
+    public event System.EventHandler OnSelectedActionChanged;
+
+    // used to monitor when the busy state changes
+    public event System.EventHandler<bool> OnBusyChanged;
+
     // This Field is used to identify which unit is currently selected. 
     [SerializeField] private Unit selectedUnit;
 
@@ -48,6 +53,11 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
 
+        if (!TurnSystem.Instance.IsPlayerTurn())
+        {
+            return;
+        }
+
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -82,11 +92,15 @@ public class UnitActionSystem : MonoBehaviour
     private void SetBusy()
     {
         isBusy = true;
+
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 
     private void ClearBusy()
     {
         isBusy = false;
+
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 
     private bool TryHandleUnitSelection()
@@ -100,6 +114,7 @@ public class UnitActionSystem : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent<Unit>(out Unit unit))
                 {
+                    // don't allow selection if the unit is an enemy
                     if (unit.GetIsEnemy())
                     {
                         return false;
@@ -123,11 +138,19 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
+
+        OnSelectedActionChanged?.Invoke(this, System.EventArgs.Empty);
     }
 
     // Gets the current selected unit
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
+    }
+
+    // returns the current selected action
+    public BaseAction GetSelectedAction()
+    {
+        return selectedAction;
     }
 }
