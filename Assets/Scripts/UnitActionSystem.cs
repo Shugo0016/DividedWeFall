@@ -9,6 +9,8 @@ public class UnitActionSystem : MonoBehaviour
 
     public event System.EventHandler OnSelectedUnitChanged;
 
+    public event System.EventHandler OnSelectedActionChanged;
+
     // This Field is used to identify which unit is currently selected. 
     [SerializeField] private Unit selectedUnit;
 
@@ -123,11 +125,19 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
+
+        OnSelectedActionChanged?.Invoke(this, System.EventArgs.Empty);
     }
 
     // Gets the current selected unit
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
+    }
+
+    // returns the current selected action
+    public BaseAction GetSelectedAction()
+    {
+        return selectedAction;
     }
 }
