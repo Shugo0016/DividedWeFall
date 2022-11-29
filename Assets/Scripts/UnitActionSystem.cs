@@ -102,6 +102,7 @@ public class UnitActionSystem : MonoBehaviour
             {
                 if (hit.transform.TryGetComponent<Unit>(out Unit unit))
                 {
+                    // don't allow selection if the unit is an enemy
                     if (unit.GetIsEnemy())
                     {
                         return false;
