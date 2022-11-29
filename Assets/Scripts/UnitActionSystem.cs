@@ -11,6 +11,9 @@ public class UnitActionSystem : MonoBehaviour
 
     public event System.EventHandler OnSelectedActionChanged;
 
+    // used to monitor when the busy state changes
+    public event System.EventHandler<bool> OnBusyChanged;
+
     // This Field is used to identify which unit is currently selected. 
     [SerializeField] private Unit selectedUnit;
 
@@ -50,6 +53,11 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
 
+        if (!TurnSystem.Instance.IsPlayerTurn())
+        {
+            return;
+        }
+
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -84,11 +92,15 @@ public class UnitActionSystem : MonoBehaviour
     private void SetBusy()
     {
         isBusy = true;
+
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 
     private void ClearBusy()
     {
         isBusy = false;
+
+        OnBusyChanged?.Invoke(this, isBusy);
     }
 
     private bool TryHandleUnitSelection()
