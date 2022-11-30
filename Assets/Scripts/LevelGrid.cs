@@ -7,6 +7,10 @@ public class LevelGrid : MonoBehaviour
 
     public static LevelGrid Instance { get; private set; }
     [SerializeField] private Transform gridDebugObjectPrefab;
+
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    [SerializeField] private float cellSize;
     private GridSys<GridObject> gridSystem;
 
 
@@ -20,15 +24,15 @@ public class LevelGrid : MonoBehaviour
         }
         Instance = this;
 
-        gridSystem = new GridSys<GridObject>(15, 15, 4f,
+        gridSystem = new GridSys<GridObject>(width, height, cellSize,
             (GridSys<GridObject> g, GridPosition gridPosition) => new GridObject(g, gridPosition));
         //gridSystem.CreateDebugObjects(gridDebugObjectPrefab);
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        Pathfinding.Instance.Setup(width, height, cellSize);
     }
 
     // Places unit at specific location on grid;
