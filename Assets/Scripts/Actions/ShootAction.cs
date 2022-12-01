@@ -157,6 +157,6 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
-        targetUnit.TakeDamage();
+        targetUnit.TakeDamage(40);
     }
 }
