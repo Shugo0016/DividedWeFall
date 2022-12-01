@@ -36,8 +36,7 @@ public class MoveAction : BaseAction
             currentPositionIndex++;
             if (currentPositionIndex >= positionList.Count)
             {
-                isActive = false;
-                onActionComplete();
+                ActionComplete();
             }
         }
 
@@ -56,8 +55,7 @@ public class MoveAction : BaseAction
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
         }
 
-        this.onActionComplete = onActionComplete;
-        isActive = true;
+        ActionStart(onActionComplete);
     }
 
     public override List<GridPosition> GetValidActionGridList()
