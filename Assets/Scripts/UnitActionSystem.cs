@@ -77,6 +77,11 @@ public class UnitActionSystem : MonoBehaviour
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(TouchWorld.GetPosition());
 
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
             if (selectedAction.IsValidActionAtGridPosition(mouseGridPosition))
             {
                 if (selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
@@ -110,6 +115,10 @@ public class UnitActionSystem : MonoBehaviour
             Ray ray;
             RaycastHit hit;
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
             if (Physics.Raycast(ray, out hit, float.MaxValue, unitLayerMask))
             {
                 if (hit.transform.TryGetComponent<Unit>(out Unit unit))
