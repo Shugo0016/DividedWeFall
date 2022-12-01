@@ -9,7 +9,7 @@ public class GridObject
     private GridPosition gridPosition;
     private List<Unit> unitList;
 
-   
+
     public GridObject(GridSys<GridObject> gridSystem, GridPosition gridPosition)
     {
         this.gridSystem = gridSystem;
@@ -21,12 +21,12 @@ public class GridObject
     public override string ToString()
     {
         string unitName = "";
-        foreach(Unit unit in unitList)
+        foreach (Unit unit in unitList)
         {
             unitName += unit + "\n";
         }
         return gridPosition.ToString() + "\n" + unitName;
-        
+
     }
 
     // adds unit to list
@@ -39,7 +39,7 @@ public class GridObject
     public void RemoveUnit(Unit unit)
     {
         unitList.Remove(unit);
-    } 
+    }
 
     // Gets unit list
     public List<Unit> GetUnitList()
@@ -50,5 +50,18 @@ public class GridObject
     public bool HasAnyUnit()
     {
         return unitList.Count > 0;
+    }
+
+    // returns the unit occupying the grid position
+    public Unit GetUnit()
+    {
+        if (HasAnyUnit())
+        {
+            return unitList[0];
+        }
+        else
+        {
+            return null;
+        }
     }
 }

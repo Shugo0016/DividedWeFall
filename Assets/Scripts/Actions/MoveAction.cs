@@ -36,11 +36,10 @@ public class MoveAction : BaseAction
             currentPositionIndex++;
             if (currentPositionIndex >= positionList.Count)
             {
-                isActive = false;
-                onActionComplete();
+                ActionComplete();
             }
         }
-        
+
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
@@ -56,8 +55,7 @@ public class MoveAction : BaseAction
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
         }
 
-        this.onActionComplete = onActionComplete;
-        isActive = true;
+        ActionStart(onActionComplete);
     }
 
     public override List<GridPosition> GetValidActionGridList()
@@ -112,7 +110,7 @@ public class MoveAction : BaseAction
                 {
                     continue;
                 }
-                
+
 
                 //Debug.Log(testGridPosition);
                 validGridPositions.Add(testGridPosition);

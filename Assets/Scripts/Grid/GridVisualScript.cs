@@ -29,7 +29,7 @@ public class GridVisualScript : MonoBehaviour
             LevelGrid.Instance.GetWidth(),
             LevelGrid.Instance.GetHeight()];
 
-        for(int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
+        for (int x = 0; x < LevelGrid.Instance.GetWidth(); x++)
         {
             for (int z = 0; z < LevelGrid.Instance.GetHeight(); z++)
             {
@@ -54,7 +54,7 @@ public class GridVisualScript : MonoBehaviour
         {
             for (int z = 0; z < LevelGrid.Instance.GetHeight(); z++)
             {
-         
+
                 gridVisualSingleArray[x, z].Hide();
 
             }
@@ -62,9 +62,9 @@ public class GridVisualScript : MonoBehaviour
         }
     }
 
-    public void ShowGridPositionsList(List<GridPosition> gridPositions) 
+    public void ShowGridPositionsList(List<GridPosition> gridPositions)
     {
-        foreach(GridPosition gridPosition in gridPositions)
+        foreach (GridPosition gridPosition in gridPositions)
         {
             gridVisualSingleArray[gridPosition.x, gridPosition.z].Show();
         }
@@ -72,9 +72,11 @@ public class GridVisualScript : MonoBehaviour
 
     private void UpdateGridVisual()
     {
+        // Debug.Log("This ran");
         HideAllGridPositions();
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
-        ShowGridPositionsList(selectedUnit.GetMoveAction().GetValidActionGridList());
+        // Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        BaseAction actionSelected = UnitActionSystem.Instance.GetSelectedAction();
+        ShowGridPositionsList(actionSelected.GetValidActionGridList());
     }
-  
+
 }
