@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour
 {
     private const int ACTION_POINTS_MAX = 2;
 
+
     // To avoid a race condition between when the points are updated and 
     // when the onscreen text is updated
     public static event EventHandler OnAnyActionPointsChanged;
@@ -50,13 +51,21 @@ public class Unit : MonoBehaviour
     // Calls the move function to move unit from one space to the next currently does not work for grid
     private void Update()
     {
-
+        
         GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         if (newGridPosition != gridPosition)
         {
+            
             LevelGrid.Instance.UnitMovedPosition(this, gridPosition, newGridPosition);
+            
+            
             gridPosition = newGridPosition;
+            
+                       
+
         }
+
+        
 
     }
 

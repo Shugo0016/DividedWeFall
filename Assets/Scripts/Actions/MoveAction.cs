@@ -8,6 +8,11 @@ public class MoveAction : BaseAction
 
     [SerializeField] private int maxMoveDistance = 5;
 
+    public event EventHandler OnStartMoving;
+
+    public event EventHandler OnStopMoving;
+
+
     public List<Vector3> positionList;
     private int currentPositionIndex;
 
@@ -36,6 +41,7 @@ public class MoveAction : BaseAction
             currentPositionIndex++;
             if (currentPositionIndex >= positionList.Count)
             {
+                OnStopMoving?.Invoke(this, EventArgs.Empty);
                 ActionComplete();
             }
         }
@@ -55,7 +61,11 @@ public class MoveAction : BaseAction
             positionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
         }
 
+
+        OnStartMoving?.Invoke(this, EventArgs.Empty);
+
         ActionStart(onActionComplete);
+
     }
 
     public override List<GridPosition> GetValidActionGridList()
