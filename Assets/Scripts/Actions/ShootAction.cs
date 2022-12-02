@@ -6,7 +6,14 @@ using System;
 public class ShootAction : BaseAction
 {
     // use a state machine for the animation
-    public event EventHandler onShoot;
+    public event EventHandler <OnShootEventArgs> onShoot;
+
+    public class OnShootEventArgs : EventArgs
+    {
+        public Unit targetUnit;
+        public Unit shootingUnit;
+
+    }
 
     private enum State
     {
@@ -164,7 +171,11 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
-        onShoot?.Invoke(this, EventArgs.Empty);
+        onShoot?.Invoke(this, new OnShootEventArgs
+        {
+            targetUnit = targetUnit,
+            shootingUnit = unit
+        });
         targetUnit.TakeDamage(40);
 
     }

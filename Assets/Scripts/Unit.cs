@@ -7,7 +7,6 @@ public class Unit : MonoBehaviour
 {
     private const int ACTION_POINTS_MAX = 2;
 
-    [SerializeField] private Animator unitAnimator;
 
     // To avoid a race condition between when the points are updated and 
     // when the onscreen text is updated
@@ -61,17 +60,12 @@ public class Unit : MonoBehaviour
             
             
             gridPosition = newGridPosition;
-            while (gridPosition != newGridPosition)
-            {
-                unitAnimator.SetBool("isWalking", true);
-            }
-                 
+            
+                       
 
         }
-        else
-        {
-            unitAnimator.SetBool("isWalking", false);
-        }
+
+        
 
     }
 
