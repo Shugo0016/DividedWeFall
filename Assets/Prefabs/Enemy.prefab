@@ -63,5 +63,13 @@ PrefabInstance:
       propertyPath: isEnemy
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7970646985146220264, guid: cba599cfab47045289d0c6c0ef5af140, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b13fa55f04669234f81a91f1778f3ebd, type: 2}
+    - target: {fileID: 7970646985146220264, guid: cba599cfab47045289d0c6c0ef5af140, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b13fa55f04669234f81a91f1778f3ebd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cba599cfab47045289d0c6c0ef5af140, type: 3}
