@@ -6,6 +6,8 @@ using System;
 public class ShootAction : BaseAction
 {
     // use a state machine for the animation
+    public event EventHandler onShoot;
+
     private enum State
     {
         Aim,
@@ -162,7 +164,9 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
+        onShoot?.Invoke(this, EventArgs.Empty);
         targetUnit.TakeDamage(40);
+
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
