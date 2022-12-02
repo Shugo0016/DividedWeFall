@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class UnitManager : MonoBehaviour
 {
@@ -56,6 +57,14 @@ public class UnitManager : MonoBehaviour
             friendlyUnitList.Remove(unit);
         }
         unitList.Remove(unit);
+        if (enemyUnitList.Count == 0)
+        {
+            SceneManager.LoadScene("YouWin");
+        }
+        if (friendlyUnitList.Count == 0)
+        {
+            SceneManager.LoadScene("YouLose");
+        }
     }
 
     public List<Unit> GetUnitList()
