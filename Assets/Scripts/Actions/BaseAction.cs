@@ -76,9 +76,14 @@ public abstract class BaseAction : MonoBehaviour
                 }
                 GridPosition finalPosition = new GridPosition(0, 0);
                 int counter = 0;
+                int count_break = 5;
+                if (finalPath.Count < 10)
+                {
+                    count_break = finalPath.Count - 3;
+                }
                 foreach (GridPosition position in finalPath)
                 {
-                    if (counter > 5)
+                    if (counter > count_break)
                     {
                         break;
                     }
