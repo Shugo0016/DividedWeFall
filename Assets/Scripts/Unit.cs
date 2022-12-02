@@ -11,10 +11,15 @@ public class Unit : MonoBehaviour
     // when the onscreen text is updated
     public static event EventHandler OnAnyActionPointsChanged;
 
+    public static event EventHandler OnAnyUnitSpawned;
+    public static event EventHandler OnAnyUnitDead;
+
     private int actionPoints = ACTION_POINTS_MAX;
     private GridPosition gridPosition;
     private MoveAction moveAction;
     private SpinAction spinAction;
+
+    private ShootAction shootAction;
     private BaseAction[] baseActionArray;
 
     private HealthSystem healthSystem;
@@ -26,6 +31,7 @@ public class Unit : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
         moveAction = GetComponent<MoveAction>();
         spinAction = GetComponent<SpinAction>();
+        shootAction = GetComponent<ShootAction>();
         baseActionArray = GetComponents<BaseAction>();
     }
 
@@ -37,6 +43,8 @@ public class Unit : MonoBehaviour
         TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
 
         healthSystem.OnDead += HealthSystem_OnDead;
+
+        OnAnyUnitSpawned?.Invoke(this, EventArgs.Empty);
     }
 
     // Calls the move function to move unit from one space to the next currently does not work for grid
@@ -60,6 +68,11 @@ public class Unit : MonoBehaviour
     public SpinAction GetSpinAction()
     {
         return spinAction;
+    }
+
+    public ShootAction GetShootAction()
+    {
+        return shootAction;
     }
 
     public GridPosition GetGridPosition()
@@ -139,5 +152,12 @@ public class Unit : MonoBehaviour
 
         // destroys the unit
         Destroy(gameObject);
+
+        OnAnyUnitDead?.Invoke(this, EventArgs.Empty);
+    }
+
+    public float GetHealthNormalized()
+    {
+        return healthSystem.GetHealthNormalized();
     }
 }
