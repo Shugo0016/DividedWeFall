@@ -6,7 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
     Vector3 touchStart;
 
-    public float zoomOutMin = 30;
+    public float zoomOutMin = 10;
     public float zoomOutMax = 90;
 
     // use this for initialization    
@@ -66,7 +66,9 @@ public class CameraMovement : MonoBehaviour
         // Debug.Log(increment);
         float y = -(increment * 30);
         // Debug.Log(y);
-        Camera.main.transform.position += new Vector3(0, y, 0);
+
+        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Mathf.Clamp(Camera.main.transform.position.y + y, zoomOutMin, zoomOutMax), Camera.main.transform.position.z);
         // Debug.Log(Camera.main.fieldOfView);
     }
+
 }

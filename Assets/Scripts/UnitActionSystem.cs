@@ -77,15 +77,27 @@ public class UnitActionSystem : MonoBehaviour
         {
             GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(TouchWorld.GetPosition());
 
-            if (selectedAction.IsValidActionAtGridPosition(mouseGridPosition))
+            if (Input.touchCount > 0)
             {
-                if (selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
                 {
-                    SetBusy();
-                    selectedAction.TakeAction(mouseGridPosition, ClearBusy);
-                    OnActionStarted?.Invoke(this, System.EventArgs.Empty);
+                    return;
                 }
             }
+
+            if (!selectedAction.IsValidActionAtGridPosition(mouseGridPosition))
+            {
+                return;
+            }
+
+            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
+            {
+                return;
+            }
+
+            SetBusy();
+            selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+            OnActionStarted?.Invoke(this, System.EventArgs.Empty);
         }
     }
 
@@ -110,6 +122,14 @@ public class UnitActionSystem : MonoBehaviour
             Ray ray;
             RaycastHit hit;
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Input.touchCount > 0)
+            {
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                {
+                    return false;
+                }
+            }
+
             if (Physics.Raycast(ray, out hit, float.MaxValue, unitLayerMask))
             {
                 if (hit.transform.TryGetComponent<Unit>(out Unit unit))
