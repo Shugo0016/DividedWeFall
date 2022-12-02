@@ -43,24 +43,12 @@ public class CameraMovement : MonoBehaviour
             Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
             Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
-            float line1_Slope = (float)(touchOnePrevPos.y - touchZeroPrevPos.y) / (touchOnePrevPos.x - touchZeroPrevPos.x);
-            float line2_Slope = (float)(touchOne.position.y - touchZero.position.y) / (touchOne.position.x - touchZero.position.x);
-
-            float angle = line1_Slope - line2_Slope;
-            float multiplication_Factor = (touchOne.position - touchOnePrevPos).magnitude * 5;
-            Debug.Log(angle);
-
             float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
 
             float difference = currentMagnitude - prevMagnitude;
 
             zoom(difference * 0.01f);
-
-            Camera.main.transform.Rotate(0.0f, angle * multiplication_Factor, 0.0f, Space.World);
-
-          
-
         }
         else if (Input.GetMouseButton(0))
         {
