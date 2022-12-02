@@ -85,15 +85,19 @@ public class UnitActionSystem : MonoBehaviour
                 }
             }
 
-            if (selectedAction.IsValidActionAtGridPosition(mouseGridPosition))
+            if (!selectedAction.IsValidActionAtGridPosition(mouseGridPosition))
             {
-                if (selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
-                {
-                    SetBusy();
-                    selectedAction.TakeAction(mouseGridPosition, ClearBusy);
-                    OnActionStarted?.Invoke(this, System.EventArgs.Empty);
-                }
+                return;
             }
+
+            if (!selectedUnit.TrySpendActionPointsToTakeAction(selectedAction))
+            {
+                return;
+            }
+
+            SetBusy();
+            selectedAction.TakeAction(mouseGridPosition, ClearBusy);
+            OnActionStarted?.Invoke(this, System.EventArgs.Empty);
         }
     }
 
@@ -124,8 +128,8 @@ public class UnitActionSystem : MonoBehaviour
                 {
                     return false;
                 }
-            } 
-            
+            }
+
             if (Physics.Raycast(ray, out hit, float.MaxValue, unitLayerMask))
             {
                 if (hit.transform.TryGetComponent<Unit>(out Unit unit))
