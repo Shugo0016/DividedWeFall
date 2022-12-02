@@ -12,6 +12,9 @@ public class ShootAction : BaseAction
         Shoot,
         Cooldown,
     }
+
+    [SerializeField] private LayerMask obstaclesLayerMask;
+
     private float totalSpinAmount;
 
     // max distance till which the player can select an enemy to shoot at
@@ -131,6 +134,15 @@ public class ShootAction : BaseAction
 
                 // checks if both the units are on the same team and modifies the units accordingly
                 if (targetUnit.GetIsEnemy() == unit.GetIsEnemy())
+                {
+                    continue;
+                }
+
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unit.GetWorldPosition()).normalized;
+                float unitShoulderHeight = 1f;
+                if (Physics.Raycast(unit.GetWorldPosition() + Vector3.up * unitShoulderHeight,
+                shootDir, Vector3.Distance(unit.GetWorldPosition(), targetUnit.GetWorldPosition()),
+                obstaclesLayerMask))
                 {
                     continue;
                 }
