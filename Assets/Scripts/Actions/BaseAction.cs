@@ -88,7 +88,7 @@ public abstract class BaseAction : MonoBehaviour
                 return new EnemyAIAction
                 {
                     gridPosition = finalPosition,
-                    actionValue = 10,
+                    actionValue = 5,
                 };
             }
             return enemyAIActionList[0];
