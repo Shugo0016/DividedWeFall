@@ -6,8 +6,8 @@ public class CameraMovement : MonoBehaviour
 {
     Vector3 touchStart;
 
-    public float zoomOutMin = 10;
-    public float zoomOutMax = 90;
+    public float zoomOutMin = 0;
+    public float zoomOutMax = 70;
 
     // use this for initialization    
     private void Start()
@@ -18,9 +18,9 @@ public class CameraMovement : MonoBehaviour
     {
         Ray ray;
         RaycastHit hit;
-
+        int ground_layer = LayerMask.GetMask("TouchPlane");
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out hit, Mathf.Infinity);
+        Physics.Raycast(ray, out hit, Mathf.Infinity, ground_layer);
         // Debug.Log(Physics.Raycast(ray, out hit, Mathf.Infinity, instance.touchPlaneLayerMask));
         return hit.point;
     }
@@ -56,7 +56,7 @@ public class CameraMovement : MonoBehaviour
             Vector3 direction = touchStart - GetPosition();
             // Debug.Log(direction);
             direction.y = 0;
-            Camera.main.transform.position += direction;
+            transform.position += direction;
         }
         zoom(Input.GetAxis("Mouse ScrollWheel"));
     }
@@ -67,7 +67,7 @@ public class CameraMovement : MonoBehaviour
         float y = -(increment * 30);
         // Debug.Log(y);
 
-        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Mathf.Clamp(Camera.main.transform.position.y + y, zoomOutMin, zoomOutMax), Camera.main.transform.position.z);
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y + y, zoomOutMin, zoomOutMax), transform.position.z);
         // Debug.Log(Camera.main.fieldOfView);
     }
 

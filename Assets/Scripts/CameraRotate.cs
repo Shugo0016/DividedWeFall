@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class CameraRotate : MonoBehaviour
 {
+    public GameObject cameraController;
+
+    public float rotationSpeed = 10f;
     public void TurnCameraClockWise()
     {
-        Camera.main.transform.Rotate(0.0f, 30.0f, 0.0f, Space.World);
+        Vector3 rotationVector = new Vector3(0, 0, 0);
+
+        rotationVector.y = 30.0f;
+
+        cameraController.transform.eulerAngles += rotationVector * rotationSpeed * Time.deltaTime;
     }
 
     public void TurnCameraAntiClockWise()
     {
-        Camera.main.transform.Rotate(0.0f, -30.0f, 0.0f, Space.World);
+        Vector3 rotationVector = new Vector3(0, 0, 0);
+
+        rotationVector.y = -30.0f;
+
+        cameraController.transform.eulerAngles += rotationVector * rotationSpeed * Time.deltaTime;
     }
 }
