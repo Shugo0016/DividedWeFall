@@ -17,10 +17,6 @@ public class Unit : MonoBehaviour
 
     private int actionPoints = ACTION_POINTS_MAX;
     private GridPosition gridPosition;
-    private MoveAction moveAction;
-    private SpinAction spinAction;
-
-    private ShootAction shootAction;
     private BaseAction[] baseActionArray;
 
     private HealthSystem healthSystem;
@@ -30,9 +26,6 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
-        moveAction = GetComponent<MoveAction>();
-        spinAction = GetComponent<SpinAction>();
-        shootAction = GetComponent<ShootAction>();
         baseActionArray = GetComponents<BaseAction>();
     }
 
@@ -51,39 +44,35 @@ public class Unit : MonoBehaviour
     // Calls the move function to move unit from one space to the next currently does not work for grid
     private void Update()
     {
-        
+
         GridPosition newGridPosition = LevelGrid.Instance.GetGridPosition(transform.position);
         if (newGridPosition != gridPosition)
         {
-            
+
             LevelGrid.Instance.UnitMovedPosition(this, gridPosition, newGridPosition);
-            
-            
+
+
             gridPosition = newGridPosition;
-            
-                       
+
+
 
         }
 
-        
+
 
     }
 
-    public MoveAction GetMoveAction()
+    public T GetAction<T>() where T : BaseAction
     {
-        return moveAction;
+        foreach (BaseAction baseAction in baseActionArray)
+        {
+            if (baseAction is T)
+            {
+                return (T)baseAction;
+            }
+        }
+        return null;
     }
-
-    public SpinAction GetSpinAction()
-    {
-        return spinAction;
-    }
-
-    public ShootAction GetShootAction()
-    {
-        return shootAction;
-    }
-
     public GridPosition GetGridPosition()
     {
         return gridPosition;
