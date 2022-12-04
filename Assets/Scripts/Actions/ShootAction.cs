@@ -27,7 +27,7 @@ public class ShootAction : BaseAction
     private float totalSpinAmount;
 
     // max distance till which the player can select an enemy to shoot at
-    private int maxShootDistance = 10;
+    private int maxShootDistance = 7;
 
     private State state;
 
@@ -211,5 +211,10 @@ public class ShootAction : BaseAction
     public Unit GetTargetUnit()
     {
         return targetUnit;
+    }
+
+    public int GetMaxShootDistance()
+    {
+        return maxShootDistance;
     }
 }
