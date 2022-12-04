@@ -6,7 +6,7 @@ using System;
 public class ShootAction : BaseAction
 {
     // use a state machine for the animation
-    public event EventHandler <OnShootEventArgs> onShoot;
+    public event EventHandler<OnShootEventArgs> onShoot;
 
     public class OnShootEventArgs : EventArgs
     {
@@ -27,7 +27,7 @@ public class ShootAction : BaseAction
     private float totalSpinAmount;
 
     // max distance till which the player can select an enemy to shoot at
-    private int maxShootDistance = 10;
+    private int maxShootDistance = 7;
 
     private State state;
 
@@ -82,7 +82,7 @@ public class ShootAction : BaseAction
         {
             case State.Aim:
                 state = State.Shoot;
-                float shootTime = 0.1f;
+                float shootTime = 0.3f;
                 timer = shootTime;
                 break;
             case State.Shoot:
@@ -168,17 +168,18 @@ public class ShootAction : BaseAction
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        ActionStart(onActionComplete);
 
         targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
 
         // switches to the first state and initializes the timer
         state = State.Aim;
-        float aimTime = 1f;
+        float aimTime = 1.5f;
         timer = aimTime;
 
         // allows the player to shoot a single bullet
         canShoot = true;
+
+        ActionStart(onActionComplete);
     }
 
     private void Shoot()
@@ -205,5 +206,15 @@ public class ShootAction : BaseAction
     public int GetTargetCountAtPosition(GridPosition gridPosition)
     {
         return GetValidActionGridList(gridPosition).Count;
+    }
+
+    public Unit GetTargetUnit()
+    {
+        return targetUnit;
+    }
+
+    public int GetMaxShootDistance()
+    {
+        return maxShootDistance;
     }
 }
