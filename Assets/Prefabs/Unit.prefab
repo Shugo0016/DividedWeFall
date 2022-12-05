@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 3423422421974543495}
   - component: {fileID: 7848306127296381535}
   - component: {fileID: 2084797789580607087}
+  - component: {fileID: 3664442088935199321}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -556,7 +557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba5512b3652c4f308dba7026b46d2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitAnimator: {fileID: 0}
   isEnemy: 0
 --- !u!65 &7575507434490808126
 BoxCollider:
@@ -640,6 +640,19 @@ MonoBehaviour:
   animator: {fileID: 6725118666870401078}
   bulletProjectilePrefab: {fileID: 2992402871672268864, guid: 5ada3acf3f5c840fd842b3c4420a7c5e, type: 3}
   shootingPointTransform: {fileID: 2090546126540172285}
+--- !u!114 &3664442088935199321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7575507434490808125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceafe55a75ab7a849928fc3f3d7c9783, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadeProjectilePrefab: {fileID: 8174438537502441345, guid: d8f9ea531438a7a4fbd6325e93980723, type: 3}
 --- !u!1 &7599757053947712263
 GameObject:
   m_ObjectHideFlags: 0
