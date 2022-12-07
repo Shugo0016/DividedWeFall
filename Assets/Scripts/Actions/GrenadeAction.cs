@@ -56,6 +56,11 @@ public class GrenadeAction : BaseAction
                     continue;
                 }
 
+                if (testGridPosition == unitGridPosition)
+                {
+                    continue;
+                }
+
                 // Debug.Log(testGridPosition);
                 validGridPositions.Add(testGridPosition);
             }
