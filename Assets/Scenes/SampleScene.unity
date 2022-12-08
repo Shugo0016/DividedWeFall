@@ -3994,8 +3994,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.3006394, y: 1e-45, z: 0, w: 0.9537379}
-  m_LocalPosition: {x: 38.3, y: 21, z: -15}
+  m_LocalRotation: {x: 0.18450847, y: -0.46192333, z: 0.098889254, w: 0.86186105}
+  m_LocalPosition: {x: 62.264606, y: 13.1774025, z: -2.518721}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5105,7 +5105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d66151dd74e9e4da3c486acb23e163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionCameraGameObject: {fileID: 1611750340}
 --- !u!1001 &1340645799
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6164,11 +6163,11 @@ GameObject:
   - component: {fileID: 1611750343}
   m_Layer: 0
   m_Name: ActionVirtualCamera
-  m_TagString: Untagged
+  m_TagString: ActionCam
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1611750341
 MonoBehaviour:
   m_ObjectHideFlags: 0
