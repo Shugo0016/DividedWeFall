@@ -1,27 +1,23 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class GrenadeAction : BaseAction
+public class SwordAction : BaseAction
 {
-    [SerializeField] private Transform grenadeProjectilePrefab;
-    private int maxThrowDistance = 7;
+    private int maxSwordDistance = 1;
+
     private void Update()
     {
         if (!isActive)
         {
             return;
         }
+        ActionComplete();
     }
     public override string GetActionName()
     {
-        return "Grenade";
-    }
-
-    public override int GetActionPointsCost()
-    {
-        return base.GetActionPointsCost();
+        return "Sword";
     }
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
@@ -29,7 +25,7 @@ public class GrenadeAction : BaseAction
         return new EnemyAIAction
         {
             gridPosition = gridPosition,
-            actionValue = 0,
+            actionValue = 200,
         };
     }
 
@@ -39,9 +35,9 @@ public class GrenadeAction : BaseAction
 
         GridPosition unitGridPosition = unit.GetGridPosition();
 
-        for (int x = -maxThrowDistance; x <= maxThrowDistance; x++)
+        for (int x = -maxSwordDistance; x <= maxSwordDistance; x++)
         {
-            for (int z = -maxThrowDistance; z <= maxThrowDistance; z++)
+            for (int z = -maxSwordDistance; z <= maxSwordDistance; z++)
             {
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
@@ -50,13 +46,19 @@ public class GrenadeAction : BaseAction
                     continue;
                 }
 
-                // restricts the grid to a rhombus shape
-                if ((Math.Abs(unitGridPosition.x - testGridPosition.x) + Math.Abs(unitGridPosition.z - testGridPosition.z)) > maxThrowDistance)
+                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition))
                 {
+                    //GridPosition Occupied by another unit
                     continue;
                 }
 
-                if (testGridPosition == unitGridPosition)
+                Unit targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(testGridPosition);
+
+                // we don't need to check if the targetUnit is null since we have a check for a unit being on this 
+                // grid position before it
+
+                // checks if both the units are on the same team and modifies the units accordingly
+                if (targetUnit.GetIsEnemy() == unit.GetIsEnemy())
                 {
                     continue;
                 }
@@ -71,22 +73,9 @@ public class GrenadeAction : BaseAction
         return validGridPositions;
     }
 
-    public override bool IsValidActionAtGridPosition(GridPosition gridPosition)
-    {
-        return base.IsValidActionAtGridPosition(gridPosition);
-    }
-
-
-    private void OnGrenadeBehaviourComplete()
-    {
-        ActionComplete();
-    }
-
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)
     {
-        Transform grenadeProjectileTransform = Instantiate(grenadeProjectilePrefab, unit.GetWorldPosition(), Quaternion.identity);
-        GrenadeProjectile grenadeProjectile = grenadeProjectileTransform.GetComponent<GrenadeProjectile>();
-        grenadeProjectile.Setup(gridPosition, OnGrenadeBehaviourComplete);
+        Debug.Log("taking sword action");
         ActionStart(onActionComplete);
     }
 }

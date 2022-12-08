@@ -8,6 +8,9 @@ public class ShootAction : BaseAction
     // use a state machine for the animation
     public event EventHandler<OnShootEventArgs> onShoot;
 
+    public static event EventHandler<OnShootEventArgs> OnAnyShoot;
+
+
     public class OnShootEventArgs : EventArgs
     {
         public Unit targetUnit;
@@ -82,12 +85,12 @@ public class ShootAction : BaseAction
         {
             case State.Aim:
                 state = State.Shoot;
-                float shootTime = 0.3f;
+                float shootTime = 0.5f;
                 timer = shootTime;
                 break;
             case State.Shoot:
                 state = State.Cooldown;
-                float cooldownTime = 0.1f;
+                float cooldownTime = 0.3f;
                 timer = cooldownTime;
                 break;
             case State.Cooldown:
@@ -173,7 +176,7 @@ public class ShootAction : BaseAction
 
         // switches to the first state and initializes the timer
         state = State.Aim;
-        float aimTime = 1.5f;
+        float aimTime = 1f;
         timer = aimTime;
 
         // allows the player to shoot a single bullet
@@ -184,6 +187,12 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
+        OnAnyShoot?.Invoke(this, new OnShootEventArgs
+        {
+            targetUnit = targetUnit,
+            shootingUnit = unit
+        });
+
         onShoot?.Invoke(this, new OnShootEventArgs
         {
             targetUnit = targetUnit,
