@@ -520,6 +520,7 @@ GameObject:
   - component: {fileID: 7848306127296381535}
   - component: {fileID: 2084797789580607087}
   - component: {fileID: 3664442088935199321}
+  - component: {fileID: 7664221205410438393}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -653,6 +654,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenadeProjectilePrefab: {fileID: 8174438537502441345, guid: d8f9ea531438a7a4fbd6325e93980723, type: 3}
+--- !u!114 &7664221205410438393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7575507434490808125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef7e73ce8c4d7724493a6543e8f74e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollPrefab: {fileID: 7575507434490808097, guid: 1b65b6d9fdbb7e046b5cd5dbb10f295a, type: 3}
+  originalRootBone: {fileID: 3052417962714486203}
 --- !u!1 &7599757053947712263
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,6 +913,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 385916aa9ee8e43cbadfbdbd02afa1ef, type: 3}
+--- !u!4 &3052417962714486203 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5465940246521907071, guid: 385916aa9ee8e43cbadfbdbd02afa1ef, type: 3}
+  m_PrefabInstance: {fileID: 7027504685438030532}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4761968016140085100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2563496969622287784, guid: 385916aa9ee8e43cbadfbdbd02afa1ef, type: 3}

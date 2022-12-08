@@ -176,7 +176,7 @@ public class ShootAction : BaseAction
 
         // switches to the first state and initializes the timer
         state = State.Aim;
-        float aimTime = 1.5f;
+        float aimTime = 1f;
         timer = aimTime;
 
         // allows the player to shoot a single bullet

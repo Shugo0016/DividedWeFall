@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: isEnemy
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7664221205410438393, guid: cba599cfab47045289d0c6c0ef5af140, type: 3}
+      propertyPath: ragdollPrefab
+      value: 
+      objectReference: {fileID: 5633230926595603350, guid: 37f8236a3a587284b9fd25040060d674, type: 3}
     - target: {fileID: 7970646985146220264, guid: cba599cfab47045289d0c6c0ef5af140, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -70,6 +74,6 @@ PrefabInstance:
     - target: {fileID: 7970646985146220264, guid: cba599cfab47045289d0c6c0ef5af140, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: b13fa55f04669234f81a91f1778f3ebd, type: 2}
+      objectReference: {fileID: 2100000, guid: 62404c6ba0d262c4194a069b966b5da2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cba599cfab47045289d0c6c0ef5af140, type: 3}
