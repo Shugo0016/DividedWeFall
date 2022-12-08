@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletProjectile : MonoBehaviour
 {
     private Vector3 targetPosition;
+    [SerializeField] private Transform bulletHitEffectPrefab;
 
     public void Setup(Vector3 targetPosition)
     {
@@ -27,6 +28,7 @@ public class BulletProjectile : MonoBehaviour
         if (distanceBeforeMoving < distanceAfterMoving)
         {
             Destroy(gameObject);
+            Instantiate(bulletHitEffectPrefab, targetPosition, Quaternion.identity);
         }
     }
 }
