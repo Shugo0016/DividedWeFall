@@ -12,6 +12,6 @@ public class ScreenShakeActions : MonoBehaviour
 
     private void ShootAction_OnAnyShoot(object sender, ShootAction.OnShootEventArgs e)
     {
-        ScreenShake.Instance.Shake(5f);
+        ScreenShake.Instance.Shake(2f);
     }
 }
