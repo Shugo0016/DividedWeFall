@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LevelGrid : MonoBehaviour
 {
 
     public static LevelGrid Instance { get; private set; }
     [SerializeField] private Transform gridDebugObjectPrefab;
+
+    public event EventHandler OnAnyMoveGridPosition;
 
     [SerializeField] private int width;
     [SerializeField] private int height;
@@ -60,6 +63,7 @@ public class LevelGrid : MonoBehaviour
     {
         RemoveUnitAtGridPosition(from, unit);
         AddUnitAtGridPosition(to, unit);
+        OnAnyMoveGridPosition?.Invoke(this, EventArgs.Empty);
     }
 
     // Looks at the world position of Unit and returns location based on grid system

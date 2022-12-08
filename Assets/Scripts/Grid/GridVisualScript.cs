@@ -58,10 +58,9 @@ public class GridVisualScript : MonoBehaviour
             }
 
         }
-    }
 
-    private void Update()
-    {
+        UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
+        LevelGrid.Instance.OnAnyMoveGridPosition += LevelGrid_OnAnyMoveGridPosition;
         UpdateGridVisual();
     }
 
@@ -115,6 +114,7 @@ public class GridVisualScript : MonoBehaviour
     {
         foreach (GridPosition gridPosition in gridPositions)
         {
+            Debug.Log(gridPosition);
             gridVisualSingleArray[gridPosition.x, gridPosition.z].Show(GetGridVisualTypeMaterial(gridVisType));
         }
     }
@@ -163,4 +163,13 @@ public class GridVisualScript : MonoBehaviour
         return null;
     }
 
+    private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
+    {
+        UpdateGridVisual();
+    }
+
+    private void LevelGrid_OnAnyMoveGridPosition(object sender, EventArgs e)
+    {
+        UpdateGridVisual();
+    }
 }
