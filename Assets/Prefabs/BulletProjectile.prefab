@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9295447bc63104838ac13a620e795557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletHitEffectPrefab: {fileID: 4039168069109682434, guid: 89c23705c53a3aa44bc3c2b7b4e7ca7b, type: 3}
 --- !u!1 &6047197251326469852
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +120,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 0.3
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.2

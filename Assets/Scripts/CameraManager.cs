@@ -5,7 +5,13 @@ using System;
 
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField] private GameObject actionCameraGameObject;
+    private GameObject actionCameraGameObject;
+
+    private void Awake()
+    {
+        actionCameraGameObject = GameObject.FindWithTag("ActionCam");
+        actionCameraGameObject.SetActive(false);
+    }
 
     private void Start()
     {
