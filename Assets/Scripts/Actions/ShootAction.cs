@@ -10,6 +10,8 @@ public class ShootAction : BaseAction
 
     public static event EventHandler<OnShootEventArgs> OnAnyShoot;
 
+    [SerializeField] public AudioSource shootNoise;
+
 
     public class OnShootEventArgs : EventArgs
     {
@@ -198,6 +200,7 @@ public class ShootAction : BaseAction
             targetUnit = targetUnit,
             shootingUnit = unit
         });
+        shootNoise.Play();
         targetUnit.TakeDamage(40);
 
     }

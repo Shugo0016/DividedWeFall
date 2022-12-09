@@ -6,6 +6,8 @@ using UnityEngine;
 public class GrenadeAction : BaseAction
 {
     [SerializeField] private Transform grenadeProjectilePrefab;
+
+    [SerializeField] public AudioSource grenadeNoise;
     private int maxThrowDistance = 7;
     private void Update()
     {
@@ -80,6 +82,7 @@ public class GrenadeAction : BaseAction
     private void OnGrenadeBehaviourComplete()
     {
         ActionComplete();
+        grenadeNoise.Play();
     }
 
     public override void TakeAction(GridPosition gridPosition, Action onActionComplete)

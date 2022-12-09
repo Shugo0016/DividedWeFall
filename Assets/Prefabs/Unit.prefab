@@ -610,6 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13bcafae158afad41804b28b847067eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootNoise: {fileID: 537119465061906547, guid: 841ba4dbb364512449b8d3f8e0865e87, type: 3}
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -641,6 +642,7 @@ MonoBehaviour:
   animator: {fileID: 6725118666870401078}
   bulletProjectilePrefab: {fileID: 2992402871672268864, guid: 5ada3acf3f5c840fd842b3c4420a7c5e, type: 3}
   shootingPointTransform: {fileID: 2090546126540172285}
+  walkNoise: {fileID: 6070552526690347255, guid: 3c07501e9fa95de46b7f681a547a54ea, type: 3}
 --- !u!114 &3664442088935199321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grenadeProjectilePrefab: {fileID: 8174438537502441345, guid: d8f9ea531438a7a4fbd6325e93980723, type: 3}
+  grenadeNoise: {fileID: 7058389722466567655, guid: 07dc1723b32e6ae48a1ed432241faebf, type: 3}
 --- !u!114 &7664221205410438393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -965,6 +968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13bcafae158afad41804b28b847067eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootNoise: {fileID: 0}
   obstaclesLayerMask:
     serializedVersion: 2
     m_Bits: 0

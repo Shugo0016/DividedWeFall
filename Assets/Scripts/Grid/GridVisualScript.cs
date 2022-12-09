@@ -114,7 +114,6 @@ public class GridVisualScript : MonoBehaviour
     {
         foreach (GridPosition gridPosition in gridPositions)
         {
-            Debug.Log(gridPosition);
             gridVisualSingleArray[gridPosition.x, gridPosition.z].Show(GetGridVisualTypeMaterial(gridVisType));
         }
     }
