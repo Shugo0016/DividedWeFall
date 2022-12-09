@@ -6,8 +6,8 @@ public class CameraMovement : MonoBehaviour
 {
     Vector3 touchStart;
 
-    public float zoomOutMin = 0;
-    public float zoomOutMax = 70;
+    private float zoomOutMin = -14;
+    private float zoomOutMax = 30;
 
     // use this for initialization    
     private void Start()
@@ -56,6 +56,21 @@ public class CameraMovement : MonoBehaviour
             Vector3 direction = touchStart - GetPosition();
             // Debug.Log(direction);
             direction.y = 0;
+
+            if (transform.position.x + direction.x < -5)
+            {
+                direction.x = 0;
+            }
+            else if (transform.position.x + direction.x > 150)
+            {
+                direction.x = 0;
+            }
+
+            if (transform.position.z + direction.z < -5 || transform.position.z + direction.z > 150)
+            {
+                direction.z = 0;
+            }
+
             transform.position += direction;
         }
         zoom(Input.GetAxis("Mouse ScrollWheel"));

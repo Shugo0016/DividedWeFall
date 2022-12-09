@@ -35,7 +35,7 @@ public struct GridPosition : IEquatable<GridPosition>
     // Writes message on grid space that states the location of that space
     public override string ToString()
     {
-        return $"x: {x}; z: {z}";
+        return "";
     }
 
     public static bool operator ==(GridPosition a, GridPosition b)
@@ -50,11 +50,11 @@ public struct GridPosition : IEquatable<GridPosition>
 
     public static GridPosition operator +(GridPosition a, GridPosition b)
     {
-        return new GridPosition(a.x + b.x, a.z + b.z); 
+        return new GridPosition(a.x + b.x, a.z + b.z);
     }
 
     public static GridPosition operator -(GridPosition a, GridPosition b)
     {
-        return new GridPosition(a.x - b.x, a.z - b.z); 
+        return new GridPosition(a.x - b.x, a.z - b.z);
     }
 }

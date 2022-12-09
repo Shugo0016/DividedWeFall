@@ -25,7 +25,7 @@ public class GridObject
         {
             unitName += unit + "\n";
         }
-        return gridPosition.ToString() + "\n" + unitName;
+        return "";
 
     }
 

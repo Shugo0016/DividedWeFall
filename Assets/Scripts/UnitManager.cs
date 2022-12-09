@@ -59,7 +59,15 @@ public class UnitManager : MonoBehaviour
         unitList.Remove(unit);
         if (enemyUnitList.Count == 0)
         {
-            SceneManager.LoadScene("YouWin");
+            Scene scene = SceneManager.GetActiveScene();
+            if (scene.name == "Level 2")
+            {
+                SceneManager.LoadScene("Level 1");
+            }
+            else
+            {
+                SceneManager.LoadScene("YouWin");
+            }
         }
         if (friendlyUnitList.Count == 0)
         {
