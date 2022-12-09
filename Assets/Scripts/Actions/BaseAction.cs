@@ -95,6 +95,11 @@ public abstract class BaseAction : MonoBehaviour
                         break;
                     }
                     finalPosition = position;
+                    if (LevelGrid.Instance.HasAnyUnitOnGridPosition(position))
+                    {
+                        //GridPosition Occupied by another unit
+                        continue;
+                    }
                     counter += 1;
                 }
                 return new EnemyAIAction

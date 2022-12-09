@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
+
+    public event EventHandler OnLevelChange;
     private List<Unit> unitList;
     private List<Unit> friendlyUnitList;
     private List<Unit> enemyUnitList;
@@ -63,10 +65,12 @@ public class UnitManager : MonoBehaviour
             if (scene.name == "Level 2")
             {
                 SceneManager.LoadScene("Level 1");
+                OnLevelChange?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 SceneManager.LoadScene("YouWin");
+                OnLevelChange?.Invoke(this, EventArgs.Empty);
             }
         }
         if (friendlyUnitList.Count == 0)
