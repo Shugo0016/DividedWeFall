@@ -138,13 +138,16 @@ public class GridVisualScript : MonoBehaviour
             case MoveAction moveAction:
                 gridVisType = GridVisType.White;
                 break;
-            case SpinAction spinAction:
+            case NoAction noAction:
                 gridVisType = GridVisType.Blue;
                 break;
             case ShootAction shootAction:
                 gridVisType = GridVisType.Red;
 
                 ShowGridPositionRange(selectedUnit.GetGridPosition(), shootAction.GetMaxShootDistance(), GridVisType.RedSoft);
+                break;
+            case GrenadeAction grenadeAction:
+                gridVisType = GridVisType.Yellow;
                 break;
         }
 
