@@ -61,6 +61,9 @@ public class GridVisualScript : MonoBehaviour
 
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         LevelGrid.Instance.OnAnyMoveGridPosition += LevelGrid_OnAnyMoveGridPosition;
+        Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+
         UpdateGridVisual();
     }
 
@@ -114,7 +117,6 @@ public class GridVisualScript : MonoBehaviour
     {
         foreach (GridPosition gridPosition in gridPositions)
         {
-            Debug.Log(gridPosition);
             gridVisualSingleArray[gridPosition.x, gridPosition.z].Show(GetGridVisualTypeMaterial(gridVisType));
         }
     }
@@ -136,13 +138,16 @@ public class GridVisualScript : MonoBehaviour
             case MoveAction moveAction:
                 gridVisType = GridVisType.White;
                 break;
-            case SpinAction spinAction:
+            case NoAction noAction:
                 gridVisType = GridVisType.Blue;
                 break;
             case ShootAction shootAction:
                 gridVisType = GridVisType.Red;
 
                 ShowGridPositionRange(selectedUnit.GetGridPosition(), shootAction.GetMaxShootDistance(), GridVisType.RedSoft);
+                break;
+            case GrenadeAction grenadeAction:
+                gridVisType = GridVisType.Yellow;
                 break;
         }
 
@@ -165,11 +170,39 @@ public class GridVisualScript : MonoBehaviour
 
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
     {
-        UpdateGridVisual();
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            UpdateGridVisual();
+        }
     }
 
     private void LevelGrid_OnAnyMoveGridPosition(object sender, EventArgs e)
     {
-        UpdateGridVisual();
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            UpdateGridVisual();
+        }
+    }
+
+    private void Unit_OnAnyUnitDead(object sender, EventArgs e)
+    {
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            UpdateGridVisual();
+        }
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        if (!TurnSystem.Instance.IsPlayerTurn())
+        {
+            Debug.Log("this ran");
+            HideAllGridPositions();
+        }
+        else
+        {
+            UnitActionSystem.Instance.SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[0]);
+            UpdateGridVisual();
+        }
     }
 }

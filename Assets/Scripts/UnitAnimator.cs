@@ -9,6 +9,8 @@ public class UnitAnimator : MonoBehaviour
 
     [SerializeField] private Transform shootingPointTransform;
 
+    [SerializeField] public AudioSource walkNoise;
+
 
     private void Awake()
     {
@@ -29,11 +31,13 @@ public class UnitAnimator : MonoBehaviour
     private void MoveAction_OnStartMoving(object sender, System.EventArgs e)
     {
         animator.SetBool("isWalking", true);
+        walkNoise.Play();
     }
 
     private void MoveAction_OnStopMoving(object sender, System.EventArgs e)
     {
         animator.SetBool("isWalking", false);
+        walkNoise.Pause();
     }
 
     private void ShootAction_OnShoot(object sender, ShootAction.OnShootEventArgs e)

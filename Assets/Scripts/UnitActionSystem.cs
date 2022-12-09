@@ -95,6 +95,11 @@ public class UnitActionSystem : MonoBehaviour
                 return;
             }
 
+            if (selectedAction.GetActionName() == "No Action")
+            {
+                return;
+            }
+
             SetBusy();
             selectedAction.TakeAction(mouseGridPosition, ClearBusy);
             OnActionStarted?.Invoke(this, System.EventArgs.Empty);
@@ -148,10 +153,10 @@ public class UnitActionSystem : MonoBehaviour
     }
 
     // Sets unit that you want to control to controllable unit
-    private void SetSelectedUnit(Unit unit)
+    public void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
-        SetSelectedAction(unit.GetAction<MoveAction>());
+        SetSelectedAction(unit.GetAction<NoAction>());
         OnSelectedUnitChanged?.Invoke(this, System.EventArgs.Empty);
     }
 
