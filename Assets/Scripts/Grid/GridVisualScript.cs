@@ -196,6 +196,7 @@ public class GridVisualScript : MonoBehaviour
     {
         if (!TurnSystem.Instance.IsPlayerTurn())
         {
+            Debug.Log("this ran");
             HideAllGridPositions();
         }
         else
