@@ -148,7 +148,7 @@ public class UnitActionSystem : MonoBehaviour
     }
 
     // Sets unit that you want to control to controllable unit
-    private void SetSelectedUnit(Unit unit)
+    public void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit;
         SetSelectedAction(unit.GetAction<MoveAction>());

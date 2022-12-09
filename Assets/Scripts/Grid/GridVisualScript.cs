@@ -61,6 +61,9 @@ public class GridVisualScript : MonoBehaviour
 
         UnitActionSystem.Instance.OnSelectedActionChanged += UnitActionSystem_OnSelectedActionChanged;
         LevelGrid.Instance.OnAnyMoveGridPosition += LevelGrid_OnAnyMoveGridPosition;
+        Unit.OnAnyUnitDead += Unit_OnAnyUnitDead;
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
+
         UpdateGridVisual();
     }
 
@@ -164,11 +167,39 @@ public class GridVisualScript : MonoBehaviour
 
     private void UnitActionSystem_OnSelectedActionChanged(object sender, EventArgs e)
     {
-        UpdateGridVisual();
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            UpdateGridVisual();
+        }
     }
 
     private void LevelGrid_OnAnyMoveGridPosition(object sender, EventArgs e)
     {
-        UpdateGridVisual();
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            UpdateGridVisual();
+        }
+    }
+
+    private void Unit_OnAnyUnitDead(object sender, EventArgs e)
+    {
+        if (TurnSystem.Instance.IsPlayerTurn())
+        {
+            UpdateGridVisual();
+        }
+    }
+
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        if (!TurnSystem.Instance.IsPlayerTurn())
+        {
+            Debug.Log("this ran");
+            HideAllGridPositions();
+        }
+        else
+        {
+            UnitActionSystem.Instance.SetSelectedUnit(UnitManager.Instance.GetFriendlyUnitList()[0]);
+            UpdateGridVisual();
+        }
     }
 }
